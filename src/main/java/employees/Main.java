@@ -17,10 +17,13 @@ public class Main {
                 Rubble2, Barney2, 2/02/1905, Manager, {orgSize=100,dr=10}
                 Rubble3, Barney3, 2/02/1905, Manager, {orgSize=300,dr=2}
                 Rubble4, Barney4, 2/02/1905, Manager, {orgSize=200,dr=4}
-                Rubble5, Barney5, 2/02/1905, Manager, {orgSize=500,dr=10}
-                
-                Flinstone, Wilma, 3/03/1910, Analyst
-                Rubble, Betty, 4/4/1915, CEO
+                Rubble5, Barney5, 2/02/1905, Manager, {orgSize=500,dr=100}
+                Flinstone, Wilma, 3/03/1910, Analyst, {projectCount=3}
+                Flinstone2, Wilma, 3/03/1910, Analyst, {projectCount=4}
+                Flinstone3, Wilma, 3/03/1910, Analyst, {projectCount=5}
+                Flinstone4, Wilma, 3/03/1910, Analyst, {projectCount=6}
+                Flinstone5, Wilma, 3/03/1910, Analyst, {projectCount=9}
+                Rubble, Betty, 4/4/1915, CEO, {avgSrockPrice=300}
                 """;
 
         String regex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)\\n";
