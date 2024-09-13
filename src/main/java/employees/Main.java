@@ -59,6 +59,9 @@ public class Main {
                     } else {
                         salary = 3000;
                     }
+                    String lastName = peopleMat.group("lastName");
+                    String firstName = peopleMat.group("firstName");
+                    System.out.printf("%s, %s: %s%n", lastName, firstName, NumberFormat.getCurrencyInstance().format(salary));
                     yield salary;
                 }
                 case "Manager" -> {
@@ -72,6 +75,9 @@ public class Main {
                     } else {
                         salary = 3500;
                     }
+                    String lastName = peopleMat.group("lastName");
+                    String firstName = peopleMat.group("firstName");
+                    System.out.printf("%s, %s: %s%n", lastName, firstName, NumberFormat.getCurrencyInstance().format(salary));
                     yield salary;
                 }
                 case "Analyst" -> {
@@ -84,6 +90,9 @@ public class Main {
                     } else {
                         salary = 2500;
                     }
+                    String lastName = peopleMat.group("lastName");
+                    String firstName = peopleMat.group("firstName");
+                    System.out.printf("%s, %s: %s%n", lastName, firstName, NumberFormat.getCurrencyInstance().format(salary));
                     yield salary;
                 }
                 case "CEO" -> {
@@ -96,6 +105,9 @@ public class Main {
                     } else {
                         salary = 5000;
                     }
+                    String lastName = peopleMat.group("lastName");
+                    String firstName = peopleMat.group("firstName");
+                    System.out.printf("%s, %s: %s%n", lastName, firstName, NumberFormat.getCurrencyInstance().format(salary));
                     yield salary;
                 }
                default -> {
