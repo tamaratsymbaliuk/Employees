@@ -33,6 +33,15 @@ public class Main {
         String progRegex = "\\w+\\=(?<locpd>\\w+)\\,\\w+\\=(?<yoe>\\w+)\\,\\w+\\=(?<iq>\\w+)";
         Pattern coderPat = Pattern.compile(progRegex);
 
+        String mgrRegex = "\\w+=(?<orgSize>\\w+),\\w+=(?<dr>\\w+)";
+        Pattern mgrPat = Pattern.compile(mgrRegex);
+
+        String analystRegex = "\\w+=(?<orgSize>\\w+),\\w+=(?<dr>\\w+)";
+        Pattern analystPat = Pattern.compile(analystRegex);
+
+        String ceoRegex = "\\w+=(?<avgSrockPrice>\\w+),\\w+=(?<dr>\\w+)";
+        Pattern ceoPat = Pattern.compile(ceoRegex);
+
 
         int totalSalaries = 0;
         while (peopleMat.find()) {
@@ -45,7 +54,7 @@ public class Main {
                         int locpd = Integer.parseInt(coderMat.group("locpd"));
                         int yoe = Integer.parseInt(coderMat.group("yoe"));
                         int iq = Integer.parseInt(coderMat.group("iq"));
-                        System.out.printf("Programmer loc: %s yoe: %s iq: %s%n", locpd, yoe, iq);
+                   //     System.out.printf("Programmer loc: %s yoe: %s iq: %s%n", locpd, yoe, iq);
                         salary =  3000 + locpd * yoe * iq;
                     } else {
                         salary = 3000;
@@ -53,13 +62,41 @@ public class Main {
                     yield salary;
                 }
                 case "Manager" -> {
-                    yield 3500;
+                    String details = peopleMat.group("details");
+                    Matcher mgrMat = mgrPat.matcher(details);
+                    int salary = 0;
+                    if (mgrMat.find()) {
+                        int orgSize = Integer.parseInt(mgrMat.group("orgSize"));
+                        int directReports = Integer.parseInt(mgrMat.group("dr"));
+                        salary = 3500 + orgSize * directReports;
+                    } else {
+                        salary = 3500;
+                    }
+                    yield salary;
                 }
                 case "Analyst" -> {
-                    yield 2500;
+                    String details = peopleMat.group("details");
+                    Matcher analystMat = analystPat.matcher(details);
+                    int salary = 0;
+                    if (analystMat.find()) {
+                        int projectCount = Integer.parseInt(analystMat.group("projectCount"));
+                        salary = 2500 + projectCount * 2;
+                    } else {
+                        salary = 2500;
+                    }
+                    yield salary;
                 }
                 case "CEO" -> {
-                    yield 5000;
+                    String details = peopleMat.group("details");
+                    Matcher ceoMat = ceoPat.matcher(details);
+                    int salary = 0;
+                    if (ceoMat.find()) {
+                        int avgStockPrice = Integer.parseInt(ceoMat.group("avgStockPrice"));
+                        salary = 5000 * avgStockPrice;
+                    } else {
+                        salary = 5000;
+                    }
+                    yield salary;
                 }
                default -> {
                     yield 0;
