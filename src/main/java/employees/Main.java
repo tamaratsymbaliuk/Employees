@@ -31,18 +31,6 @@ public class Main {
         Pattern peoplePat = Pattern.compile(peopleRegex);
         Matcher peopleMat = peoplePat.matcher(peopleText);
 
-        String progRegex = "\\w+\\=(?<locpd>\\w+)\\,\\w+\\=(?<yoe>\\w+)\\,\\w+\\=(?<iq>\\w+)";
-        Pattern coderPat = Pattern.compile(progRegex);
-
-        String mgrRegex = "\\w+=(?<orgSize>\\w+),\\w+=(?<dr>\\w+)";
-        Pattern mgrPat = Pattern.compile(mgrRegex);
-
-        String analystRegex = "\\w+=(?<orgSize>\\w+),\\w+=(?<dr>\\w+)";
-        Pattern analystPat = Pattern.compile(analystRegex);
-
-        String ceoRegex = "\\w+=(?<avgSrockPrice>\\w+),\\w+=(?<dr>\\w+)";
-        Pattern ceoPat = Pattern.compile(ceoRegex);
-
 
         int totalSalaries = 0;
         while (peopleMat.find()) {
