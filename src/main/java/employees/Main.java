@@ -10,7 +10,7 @@ public class Main {
 
         String peopleText = """
                 Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
-                Flinstone2, Fred2, 1/01/1900, Programmer, {locpd=1300,yoe=14,iq=100}
+                Flinstone2, Fred2, 1/01/1900, Programmerzzzz, {locpd=1300,yoe=14,iq=100}
                 Flinstone3, Fred3, 1/01/1900, Programmer, {locpd=2300,yoe=8,iq=105}
                 Flinstone4, Fred4, 1/01/1900, Programmer, {locpd=1630,yoe=3,iq=115}
                 Flinstone5, Fred5, 1/01/1900, Programmer, {locpd=5,yoe=10,iq=100}
@@ -33,36 +33,25 @@ public class Main {
 
 
         int totalSalaries = 0;
+         Employee employee = null; // IEmployee employee = null;
+        // made IEmployee just to show that nothing breaks because IEmpl interface implements getSalary method from Employee class
         while (peopleMat.find()) {
-           totalSalaries+= switch (peopleMat.group("role")) {
-                case "Programmer" -> {
-
-                    Programmer programmer = new Programmer(peopleMat.group());
-                    System.out.println(programmer.toString());
-                    yield programmer.getSalary();
-
-                }
-                case "Manager" -> {
-                    Manager manager = new Manager(peopleMat.group());
-                    System.out.println(manager.toString());
-                    yield manager.getSalary();
-                }
-                case "Analyst" -> {
-                    Analyst analyst = new Analyst(peopleMat.group());
-                    System.out.println(analyst.toString());
-                    yield analyst.getSalary();
-                }
-                case "CEO" -> {
-                    CEO ceo = new CEO(peopleMat.group());
-                    System.out.println(ceo.toString());
-                    yield ceo.getSalary();
-                }
-               default -> {
-                    yield 0;
-               }
+            employee = switch (peopleMat.group("role")) {
+                case "Programmer" -> new Programmer(peopleMat.group());
+                case "Manager" -> new Manager(peopleMat.group());
+                case "Analyst" -> new Analyst(peopleMat.group());
+                case "CEO" -> new CEO(peopleMat.group());
+                default -> null;
             };
+            if (employee != null) {
+                System.out.println(employee.toString());
+                totalSalaries += employee.getSalary();
+            }
         }
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
         System.out.printf("The total payout should be %s%n", currencyInstance.format(totalSalaries));
     }
 }
+// we use interface when we don't have a lot of data in common but want to combine different classes to use the same methods and implement them
+// here I decided to use super Employee class, because all the subclasses share the same data (f.e. first name, last name, constructor implementation)
+// I also made the super class abstract, so it can't be instantiated and a one abstract method getSalary, so all subclasses are forced to implement the abstract getSalary method
