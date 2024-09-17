@@ -1,9 +1,8 @@
 package employees;
 
-import java.sql.SQLOutput;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,29 +26,23 @@ public class Main {
                 Rubble, Betty, 4/4/1915, CEO, {avgSrockPrice=300}
                 """;
 
-        String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)\\})?\\n";
-        Pattern peoplePat = Pattern.compile(peopleRegex);
-        Matcher peopleMat = peoplePat.matcher(peopleText);
+        Matcher peopleMat = Employee.PEOPLE_PAT.matcher(peopleText);
 
 
         int totalSalaries = 0;
          Employee employee = null; // IEmployee employee = null;
         // made IEmployee just to show that nothing breaks because IEmpl interface implements getSalary method from Employee class
         while (peopleMat.find()) {
-            employee = switch (peopleMat.group("role")) {
-                case "Programmer" -> new Programmer(peopleMat.group());
-                case "Manager" -> new Manager(peopleMat.group());
-                case "Analyst" -> new Analyst(peopleMat.group());
-                case "CEO" -> new CEO(peopleMat.group());
-                default -> null;
-            };
-            if (employee != null) {
+            employee = Employee.createEmployee(peopleMat.group());
                 System.out.println(employee.toString());
                 totalSalaries += employee.getSalary();
-            }
         }
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
         System.out.printf("The total payout should be %s%n", currencyInstance.format(totalSalaries));
+
+        WeirdoR larry = new WeirdoR("Tom", "Larry", LocalDate.of(1993, 11, 24));
+        larry.firstName();
+
     }
 }
 // we use interface when we don't have a lot of data in common but want to combine different classes to use the same methods and implement them
