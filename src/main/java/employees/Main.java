@@ -30,7 +30,7 @@ public class Main {
 
 
         int totalSalaries = 0;
-         Employee employee = null; // IEmployee employee = null;
+         IEmployee employee = null; // IEmployee employee = null;
         // made IEmployee just to show that nothing breaks because IEmpl interface implements getSalary method from Employee class
         while (peopleMat.find()) {
             employee = Employee.createEmployee(peopleMat.group());
