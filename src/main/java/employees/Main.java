@@ -27,6 +27,9 @@ public class Main {
                 """;
 
         Matcher peopleMat = Employee.PEOPLE_PAT.matcher(peopleText);
+        Flyer pilot = new CEO("");
+        pilot.fly();
+
 
 
         int totalSalaries = 0;
