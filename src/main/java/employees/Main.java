@@ -27,8 +27,12 @@ public class Main {
                 """;
 
         Matcher peopleMat = Employee.PEOPLE_PAT.matcher(peopleText);
-        Flyer pilot = new CEO("");
-        pilot.fly();
+        //Flyer pilot = new CEO("");
+       // pilot.fly();
+
+        Programmer coder = new Programmer("test");
+        coder.cook("Hamburger"); // cook is a default method of Chef interface
+
 
 
 
