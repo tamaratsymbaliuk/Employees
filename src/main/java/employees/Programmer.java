@@ -24,4 +24,28 @@ public class Programmer extends Employee implements IEmployee, Chef {
     public int getSalary() {
         return 3000 + linesOfCode * yearsOfExp * iq;
     }
+
+    public int getLinesOfCode() {
+        return linesOfCode;
+    }
+
+    public void setLinesOfCode(int linesOfCode) {
+        this.linesOfCode = linesOfCode;
+    }
+
+    public int getYearsOfExp() {
+        return yearsOfExp;
+    }
+
+    public void setYearsOfExp(int yearsOfExp) {
+        this.yearsOfExp = yearsOfExp;
+    }
+
+    public int getIq() {
+        return iq;
+    }
+
+    public void setIq(int iq) {
+        this.iq = iq;
+    }
 }

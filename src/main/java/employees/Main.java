@@ -34,13 +34,20 @@ public class Main {
         coder.cook("Hamburger"); // cook is a default method of Chef interface
 
 
-
-
         int totalSalaries = 0;
          IEmployee employee = null; // IEmployee employee = null;
         // made IEmployee just to show that nothing breaks because IEmpl interface implements getSalary method from Employee class
         while (peopleMat.find()) {
             employee = Employee.createEmployee(peopleMat.group());
+            if (employee instanceof Programmer) {
+                System.out.println(((Programmer) employee).getIq());
+            } else if (employee instanceof Manager man) { // pattern matching
+                System.out.println(man.getBonus());
+            } else if (employee instanceof Analyst) {
+                System.out.println();
+            } else {
+                System.out.println("Default output");
+            }
                 System.out.println(employee.toString());
                 totalSalaries += employee.getSalary();
         }
