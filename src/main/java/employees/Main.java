@@ -2,6 +2,8 @@ package employees;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 
 public class Main {
@@ -30,27 +32,32 @@ public class Main {
         //Flyer pilot = new CEO("");
        // pilot.fly();
 
-        Programmer coder = new Programmer("test");
-        coder.cook("Hamburger"); // cook is a default method of Chef interface
+       // Programmer coder = new Programmer("test");
+       // coder.cook("Hamburger"); // cook is a default method of Chef interface
 
 
         int totalSalaries = 0;
          IEmployee employee = null; // IEmployee employee = null;
         // made IEmployee just to show that nothing breaks because IEmpl interface implements getSalary method from Employee class
+        List<IEmployee> employees = new ArrayList<>();
         while (peopleMat.find()) {
             employee = Employee.createEmployee(peopleMat.group());
-            if (employee instanceof Programmer) {
-                System.out.println(((Programmer) employee).getIq());
-            } else if (employee instanceof Manager man) { // pattern matching
-                System.out.println(man.getBonus());
-            } else if (employee instanceof Analyst) {
-                System.out.println();
-            } else {
-                System.out.println("Default output");
-            }
-                System.out.println(employee.toString());
-                totalSalaries += employee.getSalary();
+            employees.add(employee);
+//            if (employee instanceof Programmer) {
+//                System.out.println(((Programmer) employee).getIq());
+//            } else if (employee instanceof Manager man) { // pattern matching
+//                System.out.println(man.getBonus());
+//            } else if (employee instanceof Analyst) {
+//                System.out.println();
+//            } else {
+////                System.out.println("Default output");
+////            }
         }
+        for (IEmployee worker : employees) {
+            System.out.println(worker.toString());
+            totalSalaries += worker.getSalary();
+        }
+
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
         System.out.printf("The total payout should be %s%n", currencyInstance.format(totalSalaries));
 
