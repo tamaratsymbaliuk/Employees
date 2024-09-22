@@ -3,6 +3,7 @@ package employees;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 
@@ -39,7 +40,7 @@ public class Main {
         int totalSalaries = 0;
          IEmployee employee = null; // IEmployee employee = null;
         // made IEmployee just to show that nothing breaks because IEmpl interface implements getSalary method from Employee class
-        List<IEmployee> employees = new ArrayList<>();
+        List<IEmployee> employees = new LinkedList<>();
         while (peopleMat.find()) {
             employee = Employee.createEmployee(peopleMat.group());
             employees.add(employee);
