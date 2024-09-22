@@ -54,7 +54,18 @@ public class Main {
 ////                System.out.println("Default output");
 ////            }
         }
+
+        List<String> removalNames = new ArrayList<>();
+        removalNames.add("Wilma5");
+        removalNames.add("TomFord");
+
         for (IEmployee worker : employees) {
+            if (worker instanceof Employee) { //checking it here because the Employee class has create Employee method that has a default lambda check
+                Employee tempWorker = (Employee) worker;
+                if (removalNames.contains(tempWorker.firstName)) {
+                    employees.remove(worker);
+                }
+            }
             System.out.println(worker.toString());
             totalSalaries += worker.getSalary();
         }
