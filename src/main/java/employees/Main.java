@@ -3,6 +3,7 @@ package employees;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -44,28 +45,21 @@ public class Main {
         while (peopleMat.find()) {
             employee = Employee.createEmployee(peopleMat.group());
             employees.add(employee);
-//            if (employee instanceof Programmer) {
-//                System.out.println(((Programmer) employee).getIq());
-//            } else if (employee instanceof Manager man) { // pattern matching
-//                System.out.println(man.getBonus());
-//            } else if (employee instanceof Analyst) {
-//                System.out.println();
-//            } else {
-////                System.out.println("Default output");
-////            }
         }
 
-        List<String> removalNames = new ArrayList<>();
-        removalNames.add("Wilma5");
-        removalNames.add("TomFord");
+        List<String> undesirables = new ArrayList<>(List.of("Wilma5", "Barney4","Fred2"));
+//        undesirables.add("Barney4");
+//        undesirables.add("Fred2");
+        IEmployee third = employees.get(2);
+        employees.indexOf(third);
+
+        List<String> newStrings = new ArrayList<>();
+        newStrings.addAll(undesirables);
+        System.out.println(newStrings.size());
+
+        removeUndesirables(employees, undesirables);
 
         for (IEmployee worker : employees) {
-            if (worker instanceof Employee) { //checking it here because the Employee class has create Employee method that has a default lambda check
-                Employee tempWorker = (Employee) worker;
-                if (removalNames.contains(tempWorker.firstName)) {
-                    employees.remove(worker);
-                }
-            }
             System.out.println(worker.toString());
             totalSalaries += worker.getSalary();
         }
@@ -76,6 +70,18 @@ public class Main {
         WeirdoR larry = new WeirdoR("Tom", "Larry", LocalDate.of(1993, 11, 24));
         larry.firstName();
 
+    }
+
+    private static void removeUndesirables(List<IEmployee> employees, List<String> removalNames) {
+        for (Iterator<IEmployee> it = employees.iterator(); it.hasNext();) {
+            IEmployee worker = it.next();
+            if (worker instanceof Employee tmpWorker) {
+               // Employee tmpWorker = (Employee) worker;
+                if (removalNames.contains(tmpWorker.firstName)) {
+                    it.remove();
+                }
+            }
+        }
     }
 }
 // we use interface when we don't have a lot of data in common but want to combine different classes to use the same methods and implement them
