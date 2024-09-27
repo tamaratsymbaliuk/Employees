@@ -2,10 +2,7 @@ package employees;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 
 public class Main {
@@ -48,6 +45,8 @@ public class Main {
         }
 
         List<String> undesirables = new ArrayList<>(List.of("Wilma5", "Barney4","Fred2"));
+        undesirables.sort(Comparator.naturalOrder());
+     //   System.out.println(undesirables + " undeserables");
 //        undesirables.add("Barney4");
 //        undesirables.add("Fred2");
         IEmployee third = employees.get(2);
@@ -55,9 +54,19 @@ public class Main {
 
         List<String> newStrings = new ArrayList<>();
         newStrings.addAll(undesirables);
-        System.out.println(newStrings.size());
+       // System.out.println(newStrings.size());
 
         removeUndesirables(employees, undesirables);
+
+
+        Collections.sort(employees, Comparator.naturalOrder());
+        employees.sort((o1, o2) -> {
+            if (o1 instanceof Employee emp1 && o2 instanceof Employee emp2) { // casting to Employee emp
+                int lnameResult = emp1.lastName.compareTo(emp2.lastName);
+                return lnameResult != 0 ? lnameResult : emp1.firstName.compareTo(emp2.firstName);
+            }
+            return 0;
+        });
 
         for (IEmployee worker : employees) {
             System.out.println(worker.toString());
