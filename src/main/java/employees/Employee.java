@@ -45,7 +45,8 @@ public abstract class Employee  implements IEmployee {
                 case "Manager" -> new Manager(employeeText);
                 case "Analyst" -> new Analyst(employeeText);
                 case "CEO" -> new CEO(employeeText);
-                default -> () -> 0; // method that takes no input and returns 0
+              //  default -> () -> 0; // lambda expression, this method that takes no input and returns 0
+                default -> new DummyEmployee();
             };
         } else {
             return new DummyEmployee();
@@ -81,4 +82,11 @@ public abstract class Employee  implements IEmployee {
             return 0;
         }
     }
+
+    @Override
+    public int compareTo(IEmployee o) {
+        Employee other = (Employee) o;
+        return this.lastName.compareTo(other.lastName);
+    }
 }
+
