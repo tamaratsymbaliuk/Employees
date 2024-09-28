@@ -10,16 +10,17 @@ import java.util.regex.Matcher;
 public class Main {
 
     private static Set<IEmployee> employees;
+    private static Map<String, Employee> employeeSalaryMap;
 
     public static void main(String[] args) {
 
         String peopleText = """
                 Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
-                Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
-                Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
-                Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
-                Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
-                Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
+                Flinstone, Fred, 1/01/1900, Programmer, {locpd=4000,yoe=10,iq=140}
+                Flinstone, Fred, 1/01/1900, Programmer, {locpd=5000,yoe=10,iq=140}
+                Flinstone, Fred, 1/01/1900, Programmer, {locpd=6000,yoe=10,iq=140}
+                Flinstone, Fred, 1/01/1900, Programmer, {locpd=7000,yoe=10,iq=140}
+                Flinstone, Fred, 1/01/1900, Programmer, {locpd=8000,yoe=10,iq=140}
                 Flinstone2, Fred2, 1/01/1900, Programmerzzzz, {locpd=1300,yoe=14,iq=100}
                 Flinstone3, Fred3, 1/01/1900, Programmer, {locpd=2300,yoe=8,iq=105}
                 Flinstone4, Fred4, 1/01/1900, Programmer, {locpd=1630,yoe=3,iq=115}
@@ -43,9 +44,12 @@ public class Main {
         int totalSalaries = 0;
          IEmployee employee = null; // IEmployee employee = null;
         employees = new TreeSet<>((e1, e2) -> Integer.compare(e1.getSalary(), e2.getSalary()));
+        employeeSalaryMap = new LinkedHashMap<>();
         while (peopleMat.find()) {
             employee = Employee.createEmployee(peopleMat.group());
-            employees.add(employee);
+            Employee emp = (Employee) employee;
+            boolean add = employees.add(employee);
+            employeeSalaryMap.put(emp.firstName, emp);
         }
 
 
@@ -78,6 +82,7 @@ public class Main {
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
         System.out.printf("The total payout should be %s%n", currencyInstance.format(totalSalaries));
         System.out.println(employees.size());
+        System.out.println(employeeSalaryMap);
     }
 
     private static void removeUndesirables(List<IEmployee> employees, List<String> removalNames) {
@@ -93,14 +98,12 @@ public class Main {
     }
 
     public int getSalary(String firstName) {
-        for (IEmployee employee : employees) {
-            Employee emp = (Employee) employee;
-            if (firstName.equals(emp.firstName)) {
-                return emp.getSalary();
-            }
-        }
-        return 0;
+        return employeeSalaryMap.get(firstName).getSalary();
     }
+    public String getLastName(String firstName) {
+        return employeeSalaryMap.get(firstName).lastName;
+    }
+
 }
 // we use interface when we don't have a lot of data in common but want to combine different classes to use the same methods and implement them
 // here I decided to use super Employee class, because all the subclasses share the same data (f.e. first name, last name, constructor implementation)
