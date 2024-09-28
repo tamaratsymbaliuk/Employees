@@ -1,5 +1,7 @@
 package employees;
 
+import com.sun.source.tree.Tree;
+
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.*;
@@ -9,6 +11,11 @@ public class Main {
     public static void main(String[] args) {
 
         String peopleText = """
+                Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
+                Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
+                Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
+                Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
+                Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
                 Flinstone, Fred, 1/01/1900, Programmer, {locpd=2000,yoe=10,iq=140}
                 Flinstone2, Fred2, 1/01/1900, Programmerzzzz, {locpd=1300,yoe=14,iq=100}
                 Flinstone3, Fred3, 1/01/1900, Programmer, {locpd=2300,yoe=8,iq=105}
@@ -28,45 +35,35 @@ public class Main {
                 """;
 
         Matcher peopleMat = Employee.PEOPLE_PAT.matcher(peopleText);
-        //Flyer pilot = new CEO("");
-       // pilot.fly();
-
-       // Programmer coder = new Programmer("test");
-       // coder.cook("Hamburger"); // cook is a default method of Chef interface
 
 
         int totalSalaries = 0;
          IEmployee employee = null; // IEmployee employee = null;
-        // made IEmployee just to show that nothing breaks because IEmpl interface implements getSalary method from Employee class
-        List<IEmployee> employees = new LinkedList<>();
+        Set<IEmployee> employees = new TreeSet<>();
         while (peopleMat.find()) {
             employee = Employee.createEmployee(peopleMat.group());
             employees.add(employee);
         }
 
-        List<String> undesirables = new ArrayList<>(List.of("Wilma5", "Barney4","Fred2"));
-        undesirables.sort(Comparator.naturalOrder());
-     //   System.out.println(undesirables + " undeserables");
-//        undesirables.add("Barney4");
-//        undesirables.add("Fred2");
-        IEmployee third = employees.get(2);
-        employees.indexOf(third);
-
-        List<String> newStrings = new ArrayList<>();
-        newStrings.addAll(undesirables);
-       // System.out.println(newStrings.size());
-
-        removeUndesirables(employees, undesirables);
-
-
-        Collections.sort(employees, Comparator.naturalOrder());
-        employees.sort((o1, o2) -> {
-            if (o1 instanceof Employee emp1 && o2 instanceof Employee emp2) { // casting to Employee emp
-                int lnameResult = emp1.lastName.compareTo(emp2.lastName);
-                return lnameResult != 0 ? lnameResult : emp1.firstName.compareTo(emp2.firstName);
-            }
-            return 0;
-        });
+//        List<String> undesirables = new ArrayList<>(List.of("Wilma5", "Barney4","Fred2"));
+//        undesirables.sort(Comparator.naturalOrder());
+//     //   System.out.println(undesirables + " undeserables");
+//
+//        List<String> newStrings = new ArrayList<>();
+//        newStrings.addAll(undesirables);
+//       // System.out.println(newStrings.size());
+//
+//        removeUndesirables(employees, undesirables);
+//
+//
+//        Collections.sort(employees, Comparator.naturalOrder());
+//        employees.sort((o1, o2) -> {
+//            if (o1 instanceof Employee emp1 && o2 instanceof Employee emp2) { // casting to Employee emp
+//                int lnameResult = emp1.lastName.compareTo(emp2.lastName);
+//                return lnameResult != 0 ? lnameResult : emp1.firstName.compareTo(emp2.firstName);
+//            }
+//            return 0;
+//        });
 
         for (IEmployee worker : employees) {
             System.out.println(worker.toString());
@@ -75,10 +72,7 @@ public class Main {
 
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
         System.out.printf("The total payout should be %s%n", currencyInstance.format(totalSalaries));
-
-        WeirdoR larry = new WeirdoR("Tom", "Larry", LocalDate.of(1993, 11, 24));
-        larry.firstName();
-
+        System.out.println(employees.size());
     }
 
     private static void removeUndesirables(List<IEmployee> employees, List<String> removalNames) {
