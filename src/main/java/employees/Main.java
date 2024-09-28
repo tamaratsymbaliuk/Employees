@@ -8,6 +8,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 
 public class Main {
+
+    private static Set<IEmployee> employees;
+
     public static void main(String[] args) {
 
         String peopleText = """
@@ -39,11 +42,13 @@ public class Main {
 
         int totalSalaries = 0;
          IEmployee employee = null; // IEmployee employee = null;
-        Set<IEmployee> employees = new TreeSet<>();
+        employees = new TreeSet<>((e1, e2) -> Integer.compare(e1.getSalary(), e2.getSalary()));
         while (peopleMat.find()) {
             employee = Employee.createEmployee(peopleMat.group());
             employees.add(employee);
         }
+
+
 
 //        List<String> undesirables = new ArrayList<>(List.of("Wilma5", "Barney4","Fred2"));
 //        undesirables.sort(Comparator.naturalOrder());
@@ -85,6 +90,16 @@ public class Main {
                 }
             }
         }
+    }
+
+    public int getSalary(String firstName) {
+        for (IEmployee employee : employees) {
+            Employee emp = (Employee) employee;
+            if (firstName.equals(emp.firstName)) {
+                return emp.getSalary();
+            }
+        }
+        return 0;
     }
 }
 // we use interface when we don't have a lot of data in common but want to combine different classes to use the same methods and implement them
