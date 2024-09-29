@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 public class Main {
 
     private static Set<IEmployee> employees;
-    private static Map<String, Employee> employeeSalaryMap;
+    private static Map<String, Integer> employeeSalaryMap;
 
     public static void main(String[] args) {
 
@@ -49,7 +49,10 @@ public class Main {
             employee = Employee.createEmployee(peopleMat.group());
             Employee emp = (Employee) employee;
             boolean add = employees.add(employee);
-            employeeSalaryMap.put(emp.firstName, emp);
+            employeeSalaryMap.putIfAbsent(emp.firstName, emp.getSalary());
+//            for (Map.Entry<String, Integer> entry : employeeSalaryMap.entrySet()) {
+//                System.out.printf("Key = %s, value = %s%n", entry.getKey(), entry.getValue());
+//            }
         }
 
 
@@ -82,7 +85,7 @@ public class Main {
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
         System.out.printf("The total payout should be %s%n", currencyInstance.format(totalSalaries));
         System.out.println(employees.size());
-        System.out.println(employeeSalaryMap);
+        System.out.println(employeeSalaryMap.entrySet());
     }
 
     private static void removeUndesirables(List<IEmployee> employees, List<String> removalNames) {
@@ -98,11 +101,9 @@ public class Main {
     }
 
     public int getSalary(String firstName) {
-        return employeeSalaryMap.get(firstName).getSalary();
+        return employeeSalaryMap.getOrDefault(firstName, -1);
     }
-    public String getLastName(String firstName) {
-        return employeeSalaryMap.get(firstName).lastName;
-    }
+
 
 }
 // we use interface when we don't have a lot of data in common but want to combine different classes to use the same methods and implement them
