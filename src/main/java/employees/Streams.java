@@ -1,5 +1,9 @@
 package employees;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -64,5 +68,24 @@ public class Streams {
 
         IntStream.rangeClosed(1,40) // IntStream
                 .forEach(System.out::println);
+
+        // 1-2-3-4-5-
+        IntStream.rangeClosed(1,5) // IntStream
+                .mapToObj(String::valueOf)
+                .map(s-> s.concat("-"))
+                .forEach(System.out::print);
+
+        System.out.println();
+
+        String[] names = {"tom", "sam", "ted"};
+        Arrays.stream(names)
+                .forEach(System.out::println);
+
+        try {
+            Files.lines(Path.of("/Users/tamaratsymbaliuk/Documents/Repositories/Employees/src/main/java/employees/employees.txt"))
+                    .forEach(System.out::println);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
