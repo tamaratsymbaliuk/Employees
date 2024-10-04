@@ -3,6 +3,7 @@ package employees;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Streams {
@@ -53,6 +54,15 @@ public class Streams {
 
         Stream.of(new Car("Ford", "Bronco"), new Car("Tesla", "X"), new Car("Mercedes", "LS"))
                 .filter(c -> "Tesla".equals(c.make))
+                .forEach(System.out::println);
+
+        String myVar = "hello";
+        Stream.of(myVar)
+                .forEach(System.out::println);
+
+        Stream.of(1,2,3); // Stream<Integer>
+
+        IntStream.rangeClosed(1,40) // IntStream
                 .forEach(System.out::println);
     }
 }
