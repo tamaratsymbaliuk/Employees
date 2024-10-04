@@ -1,5 +1,10 @@
 package employees;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
+
 public class Streams {
     public static void main(String[] args) {
         String peopleText = """
@@ -28,6 +33,26 @@ public class Streams {
 
         peopleText.lines()
                 .map(Employee::createEmployee)
+                .forEach(System.out::println);
+
+
+
+
+
+        List<String> nums = List.of("one", "two", "three", "four");
+        nums.stream()
+                .map(String::toUpperCase)
+                .forEach(System.out::println);
+
+        Collection<String> numbers = Set.of("one", "two", "three", "four");
+        nums.stream()
+                .map(String::hashCode)
+                .forEach(System.out::println);
+
+        record Car(String make, String model){}
+
+        Stream.of(new Car("Ford", "Bronco"), new Car("Tesla", "X"), new Car("Mercedes", "LS"))
+                .filter(c -> "Tesla".equals(c.make))
                 .forEach(System.out::println);
     }
 }
