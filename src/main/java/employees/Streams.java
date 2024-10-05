@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLOutput;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import static java.util.Comparator.comparing;
 
 public class Streams {
     public static void main(String[] args) {
@@ -37,8 +36,12 @@ public class Streams {
                 Rubble, Betty, 4/4/1915, CEO, {avgSrockPrice=300}
                 """;
 
-        int sum = peopleText.lines()
+        int sum = peopleText
+                .lines()
                 .map(Employee::createEmployee)
+              //  .sorted((x,y) -> Integer.compare(x.getSalary(), y.getSalary()))
+                .map(e -> (Employee)e)
+                .sorted(comparing(Employee::getLastName))
                 .mapToInt(e -> {
                     System.out.println(e);
                     return e.getSalary();
