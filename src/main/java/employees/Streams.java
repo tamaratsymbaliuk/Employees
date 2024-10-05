@@ -71,6 +71,10 @@ public class Streams {
 
         System.out.println(optionEmp.map(Employee::getFirstName).orElse("Nobody"));
 
+        Optional<String> output = Stream.of("tom", "marry", "sam")
+                .reduce((a,b) -> a.concat("_").concat(b));
+        System.out.println(output.orElse("")); // tom_marry_sam
+
 
 
 
