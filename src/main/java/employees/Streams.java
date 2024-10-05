@@ -21,7 +21,6 @@ public class Streams {
                 Flinstone, Fred, 1/01/1900, Programmer, {locpd=6000,yoe=10,iq=140}
                 Flinstone, Fred, 1/01/1900, Programmer, {locpd=7000,yoe=10,iq=140}
                 Flinstone, Fred, 1/01/1900, Programmer, {locpd=8000,yoe=10,iq=140}
-                Flinstone2, Fred2, 1/01/1900, Programmerzzzz, {locpd=1300,yoe=14,iq=100}
                 Flinstone3, Fred3, 1/01/1900, Programmer, {locpd=2300,yoe=8,iq=105}
                 Flinstone4, Fred4, 1/01/1900, Programmer, {locpd=1630,yoe=3,iq=115}
                 Flinstone5, Fred5, 1/01/1900, Programmer, {locpd=5,yoe=10,iq=100}
@@ -38,22 +37,41 @@ public class Streams {
                 Rubble, Betty, 4/4/1915, CEO, {avgSrockPrice=300}
                 """;
 
-        int sum = peopleText
-                .lines()
-                .filter(not(s -> s.contains("Programmerzzzz")))
-                .map(Employee::createEmployee)
-              //  .sorted((x,y) -> Integer.compare(x.getSalary(), y.getSalary()))
-                .map(e -> (Employee)e)
-             //   .filter(not(e -> e.getLastName().equals("N/A")))
-                .collect(Collectors.toSet()).stream()
-                .sorted(comparing(Employee::getLastName).thenComparing(Employee::getFirstName))
-                .mapToInt(e -> {
-                    System.out.println(e);
-                    return e.getSalary();
-                })
-                .sum();
+//        int sum = peopleText
+//                .lines()
+//                .filter(not(s -> s.contains("Programmerzzzz")))
+//                .map(Employee::createEmployee)
+//              //  .sorted((x,y) -> Integer.compare(x.getSalary(), y.getSalary()))
+//                .map(e -> (Employee)e)
+//             //   .filter(not(e -> e.getLastName().equals("N/A")))
+//                .collect(Collectors.toSet()).stream()
+//                .sorted(comparing(Employee::getLastName).thenComparing(Employee::getFirstName))
+//                .mapToInt(e -> {
+//                    System.out.println(e);
+//                    return e.getSalary();
+//                })
+//                .sum();
+//
+//        System.out.println(sum);
 
-        System.out.println(sum);
+//        peopleText.lines()
+//                .map(Employee::createEmployee)
+//                .map(e -> (Employee)e)
+//                .map(Employee::getFirstName)
+//                .map(firstName -> firstName.split(""))
+//                .flatMap(Arrays::stream)
+//                .map(String::toLowerCase)
+//                .distinct()
+//                .forEach(System.out::println);
+
+        Optional<Employee> optionEmp =  peopleText.lines()
+                .map(Employee::createEmployee)
+                .map(e -> (Employee)e)
+                .findFirst();
+
+        System.out.println(optionEmp.map(Employee::getFirstName).orElse("Nobody"));
+
+
 
 
 
