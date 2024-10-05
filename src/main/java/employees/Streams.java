@@ -5,10 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLOutput;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
+import static java.util.function.Predicate.not;
 
 public class Streams {
     public static void main(String[] args) {
@@ -41,7 +43,9 @@ public class Streams {
                 .map(Employee::createEmployee)
               //  .sorted((x,y) -> Integer.compare(x.getSalary(), y.getSalary()))
                 .map(e -> (Employee)e)
-                .sorted(comparing(Employee::getLastName))
+                .filter(not(e -> e.getLastName().equals("N/A")))
+                .collect(Collectors.toSet()).stream()
+                .sorted(comparing(Employee::getLastName).thenComparing(Employee::getFirstName))
                 .mapToInt(e -> {
                     System.out.println(e);
                     return e.getSalary();
