@@ -3,6 +3,7 @@ package employees;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -36,9 +37,16 @@ public class Streams {
                 Rubble, Betty, 4/4/1915, CEO, {avgSrockPrice=300}
                 """;
 
-        peopleText.lines()
+        int sum = peopleText.lines()
                 .map(Employee::createEmployee)
-                .forEach(System.out::println);
+                .mapToInt(e -> {
+                    System.out.println(e);
+                    return e.getSalary();
+                })
+                .sum();
+
+        System.out.println(sum);
+
 
 
 
