@@ -40,10 +40,11 @@ public class Streams {
 
         int sum = peopleText
                 .lines()
+                .filter(not(s -> s.contains("Programmerzzzz")))
                 .map(Employee::createEmployee)
               //  .sorted((x,y) -> Integer.compare(x.getSalary(), y.getSalary()))
                 .map(e -> (Employee)e)
-                .filter(not(e -> e.getLastName().equals("N/A")))
+             //   .filter(not(e -> e.getLastName().equals("N/A")))
                 .collect(Collectors.toSet()).stream()
                 .sorted(comparing(Employee::getLastName).thenComparing(Employee::getFirstName))
                 .mapToInt(e -> {
