@@ -1,4 +1,4 @@
-package employees;
+package StreamsAndLambdas;
 
 import java.io.IOException;
 import java.math.BigDecimal;
