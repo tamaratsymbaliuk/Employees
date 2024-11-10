@@ -1,4 +1,6 @@
-package employees;
+package StreamsAndLambdas;
+
+import employees.Employee;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -120,7 +122,7 @@ public class Streams {
                 .forEach(System.out::println);
 
         try {
-            Files.lines(Path.of("/Users/tamaratsymbaliuk/Documents/Repositories/Employees/src/main/java/employees/employees.txt"))
+            Files.lines(Path.of("/Users/tamaratsymbaliuk/Documents/Repositories/Employees/src/main/java/employees/employees.txt")).parallel()
                     .forEach(System.out::println);
         } catch (IOException e) {
             throw new RuntimeException(e);
